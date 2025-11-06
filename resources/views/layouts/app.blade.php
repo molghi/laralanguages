@@ -28,5 +28,8 @@
 
     {{-- JS: show now time --}}
     {{-- @include('partials.js_show_now_time') --}}
+
+    {{-- JS: hotkeys --}}
+    @include('partials.js_hotkeys')
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 <h2 class="text-[#eee] font-bold text-3xl mb-[10px]">Sign Up</h2>
 
-<form action="{{ route('user.signup') }}" method="POST" class="{{config('tailwind.block-bg')}} text-white p-6 rounded-lg mx-auto space-y-4 max-w-sm">
+<form action="{{ route('user.signup') }}" method="POST" class="{{config('tailwind.block-bg')}} border border-gray-700 text-white p-6 rounded-lg mx-auto space-y-4 max-w-sm">
     @csrf 
 
     <input required autofocus type="email" name="email" placeholder="Email" class="w-full py-2 px-4 rounded bg-gray-700 focus:outline-none focus:outline-none focus:ring-1 focus:ring-gray-300 focus:bg-gray-700">

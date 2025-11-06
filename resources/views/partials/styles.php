@@ -46,4 +46,23 @@
         /* filter: blur(3px); */
     }
 
+    .translation {
+        position: relative;
+    }
+    .translation:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 105%;
+        height: 100%;
+        background-color: #222;
+        transition: all 1.3s;
+        border-radius: 5px;
+        cursor: none;
+    }
+    .translation:hover:after {
+        background-color: transparent;
+    }
+
 </style>
