@@ -27,8 +27,15 @@
 
 @section('content')
     <div class="mt-10 text-center">
-        {{-- @include('partials.login_form') --}}
-        <i class="text-white">Entries: {{count($user_words)}}</i>
+        {{-- Page title & filter --}}
+        <div class="flex items-center justify-between max-w-2xl mx-auto mb-5">
+            <h2 class="text-xl font-bold text-white">View Words — Entries: {{count($user_words)}}</h2>
+            <select name="filter" class="bg-black text-white rounded-md px-4 py-1 bg-gray-700 border border-gray-500">
+                <option value="0" selected disabled>Filter</option>
+            </select>
+        </div>
+
+        {{-- print words --}}
         @if (!empty($user_words) && count($user_words) > 0)
             <div class="max-w-2xl mx-auto">
                 @foreach ($user_words as $entry)
@@ -38,6 +45,14 @@
         @else 
             <div class="text-center text-white">No words added.</div>
         @endif
+
+        {{-- import/export btns --}}
+        <div class="flex gap-4 items-center fixed bottom-[60px] right-[15px]">
+            <a href="#" class="{{ config('tailwind.btn-styles') }} bg-gray-700 opacity-40 hover:opacity-100 hover:text-white hover:bg-gray-500" title="Import words as JSON">Import</a>
+            @if (!empty($user_words) && count($user_words) > 0)
+                <a href="#" class="{{ config('tailwind.btn-styles') }} bg-gray-700 opacity-40 hover:opacity-100 hover:text-white hover:bg-gray-500" title="Export words as JSON">Export</a>
+            @endif 
+        </div>
     </div>
     @include('partials.flash_message')
 @endsection

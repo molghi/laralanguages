@@ -61,13 +61,13 @@
   </div>
 
   <div class="flex justify-end gap-2 absolute top-[10px] right-[10px]">
-    <a href="/form/edit/{{$entry->id}}" class="{{config('tailwind.btn-styles')}} hover:bg-blue-500 text-white font-semibold  active:translate-y-[1px] shadow py-1 opacity-50 hover:opacity-100 border border-[#555]">
+    <a href="/form/edit/{{$entry->id}}" class="{{config('tailwind.btn-styles')}} hover:bg-blue-500 text-white font-semibold  active:translate-y-[1px] shadow py-1 opacity-50 hover:opacity-100 border border-[#555] hover:text-white">
       Edit
     </a>
     <form action="{{ route('word.delete', $entry->id) }}" method="POST">
         @csrf
         @method("DELETE")
-        <button type="submit" onclick="return confirm('Are you sure you want to delete this entry?\n\nThis action cannot be undone.')" class="{{config('tailwind.btn-styles')}} hover:bg-red-600 text-white font-semibold active:translate-y-[1px] shadow py-1 opacity-50 hover:opacity-100 border border-[#555]">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this entry?\n\nThis action cannot be undone.')" class="{{config('tailwind.btn-styles')}} hover:bg-red-600 text-white font-semibold active:translate-y-[1px] shadow py-1 opacity-50 hover:opacity-100 border border-[#555] hover:text-white">
             Delete
         </button>
     </form>

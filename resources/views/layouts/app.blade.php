@@ -14,6 +14,7 @@
     @include('partials.styles')
 </head>
 <body style="background-color: var(--bg);" class="flex flex-col h-[100vh] text-[var(--accent)] font-mono">
+    <div class="bg"></div>
 
     <main class="flex-1 pb-[100px]">
         <!-- INCLUDE HEADER -->
