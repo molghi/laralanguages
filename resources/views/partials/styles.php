@@ -45,7 +45,7 @@
         content: '';
         position: absolute;
         top: 0;
-        left: 0;
+        left: -2px;
         width: 105%;
         height: 100%;
         background-color: #222;

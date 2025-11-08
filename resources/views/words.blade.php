@@ -19,6 +19,7 @@
         'cz' => 'cadetblue',
         'en' => '#EA60AB',
     ];
+    $selected_language = 'es';
 @endphp
 
 @extends('layouts.app')
@@ -29,10 +30,8 @@
     <div class="mt-10 text-center">
         {{-- Page title & filter --}}
         <div class="flex items-center justify-between max-w-2xl mx-auto mb-5">
-            <h2 class="text-xl font-bold text-white">View Words — Entries: {{count($user_words)}}</h2>
-            <select name="filter" class="bg-black text-white rounded-md px-4 py-1 bg-gray-700 border border-gray-500">
-                <option value="0" selected disabled>Filter</option>
-            </select>
+            <h2 class="text-2xl font-semibold text-white">View Words — Entries: {{count($user_words)}}</h2>
+            @include('partials.lang_select')
         </div>
 
         {{-- print words --}}
@@ -42,6 +41,7 @@
                     @include('partials.word_entry')
                 @endforeach
             </div>
+            <div class="max-w-2xl mx-auto mt-6">{{ $user_words->links() }}</div>
         @else 
             <div class="text-center text-white">No words added.</div>
         @endif
@@ -53,6 +53,8 @@
                 <a href="#" class="{{ config('tailwind.btn-styles') }} bg-gray-700 opacity-40 hover:opacity-100 hover:text-white hover:bg-gray-500" title="Export words as JSON">Export</a>
             @endif 
         </div>
+
     </div>
+
     @include('partials.flash_message')
 @endsection

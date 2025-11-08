@@ -15,13 +15,13 @@
 
 <header class="{{ config('tailwind.block-bg--transparent') }} p-4 text-white font-mono">
     <div class="max-w-4xl mx-auto flex items-center justify-between">
-        <div class="text-xl font-bold" title="{{ $hotkeys }}">Easy Lang Coach</div>
+        <div class="text-xl font-bold transition opacity-50 hover:opacity-100" title="{{ $hotkeys }}">Easy Lang Coach</div>
         
         <div class="relative z-[5] flex items-center gap-6">
             @if ($user_id)
                 <a href="/form" class="bg-green-700 {{ config('tailwind.btn-styles') }} {{ $page_is_add_edit_word ? $current_page_classes : '' }}" id="add-word">Add Word</a>
                 <a href="/words" class="bg-blue-700 {{ config('tailwind.btn-styles') }} {{ $page_is_words ? $current_page_classes : '' }}" id="view-words">View Words</a>
-                <a href="" class="bg-orange-500 {{ config('tailwind.btn-styles') }} {{ $page_is_practice ? $current_page_classes : '' }}" id="practice">Practice</a>
+                <a href="#" class="bg-orange-500 {{ config('tailwind.btn-styles') }} {{ $page_is_practice ? $current_page_classes : '' }}" id="practice">Practice</a>
                 <a href="/logout" class="bg-gray-700 {{ config('tailwind.btn-styles') }}">Logout</a>
             @else
                 <a href="/login" class="bg-gray-700 {{ config('tailwind.btn-styles') }} {{ $page_is_login ? $current_page_classes : '' }}">Login</a>

@@ -15,42 +15,42 @@
     @if ($entry->translation)
         <div class="flex gap-4 items-center">
             <div class="font-semibold text-sm text-gray-500">Translation:</div>
-            <div class="italic text-yellow-300 translation">{{$entry->translation}}</div>
+            <div class="italic text-[{{ $language_colors[$entry->language] }}] translation">{{$entry->translation}}</div>
         </div>
     @endif 
 
     @if ($entry->definition)
         <div class="flex gap-4 items-center">
             <div class="font-semibold text-sm text-gray-500">Definition:</div>
-            <div class="italic text-yellow-300">{{ $entry->definition }}</div>
+            <div class="italic text-[{{ $language_colors[$entry->language] }}]">{{ $entry->definition }}</div>
         </div>
     @endif 
 
     @if ($entry->category)
         <div class="flex gap-4 items-center">
             <div class="font-semibold text-sm text-gray-500">Category:</div>
-            <div class="italic text-yellow-300">{{ $entry->category }}</div>
+            <div class="italic text-[{{ $language_colors[$entry->language] }}]">{{ $entry->category }}</div>
         </div>
     @endif 
 
     @if ($entry->web_img)
         <div class="flex gap-4 items-center">
             <div class="font-semibold text-sm text-gray-500">Web Image:</div>
-            <div class="italic text-yellow-300">{{ $entry->web_img }}</div>
+            <div class="italic text-[{{ $language_colors[$entry->language] }}]">{{ $entry->web_img }}</div>
         </div>
     @endif 
 
     @if ($entry->example_usage)
         <div class="flex gap-4 items-center">
             <div class="font-semibold text-sm text-gray-500">Example Usage:</div>
-            <div class="italic text-yellow-300">{{ $entry->example_usage }}</div>
+            <div class="italic text-[{{ $language_colors[$entry->language] }}]">{{ $entry->example_usage }}</div>
         </div>
     @endif 
 
     @if ($entry->note)
         <div class="flex gap-4 items-center">
             <div class="font-semibold text-sm text-gray-500">Note:</div>
-            <div class="italic text-yellow-300">{{ $entry->note }}</div>
+            <div class="italic text-[{{ $language_colors[$entry->language] }}]">{{ $entry->note }}</div>
         </div>
     @endif 
 
