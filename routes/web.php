@@ -3,6 +3,7 @@
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WordController;
+use App\Models\Word;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,3 +56,9 @@ Route::get('/form/edit/{id}', [WordController::class, 'edit'])->middleware('auth
 
 // Update word
 Route::put('/words/{id}', [WordController::class, 'update'])->name('word.update')->middleware('auth');
+
+// Export words
+Route::get('/export', [WordController::class, 'return_words_json'])->middleware('auth');
+
+// Import words
+Route::post('/import', [WordController::class, 'process_import'])->name('import')->middleware('auth');

@@ -46,14 +46,7 @@
             <div class="text-center text-white">No words added.</div>
         @endif
 
-        {{-- import/export btns --}}
-        <div class="flex gap-4 items-center fixed bottom-[60px] right-[15px]">
-            <a href="#" class="{{ config('tailwind.btn-styles') }} bg-gray-700 opacity-40 hover:opacity-100 hover:text-white hover:bg-gray-500" title="Import words as JSON">Import</a>
-            @if (!empty($user_words) && count($user_words) > 0)
-                <a href="#" class="{{ config('tailwind.btn-styles') }} bg-gray-700 opacity-40 hover:opacity-100 hover:text-white hover:bg-gray-500" title="Export words as JSON">Export</a>
-            @endif 
-        </div>
-
+        @include('partials.import_export_btns')
     </div>
 
     @include('partials.flash_message')

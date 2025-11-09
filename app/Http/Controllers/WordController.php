@@ -70,4 +70,43 @@ class WordController extends Controller
     }
 
     // ========================================================
+
+    // export
+    public function return_words_json () {
+        // get entries
+        $user_words = Word::where('user_id', Auth::id())->get();
+        // set the response body as JSON, set the Content-Type: application/json header; and tell the browser to treat the response as a downloadable file
+        return response()->json($user_words)
+                ->header('Content-Disposition', 'attachment; filename="easy-lang-coach--words.json"');
+    }
+
+    // ========================================================
+
+    public function process_import (Request $request) {
+        if ($request->file('import')->getClientOriginalExtension() !== 'json') {
+            return back()->with('error', 'Only JSON type is valid.');
+        } else {
+            // parse file, update db
+            $file = $request->file('import');
+            $contents = $file->get();
+            $arrayed = json_decode($contents, true);
+            $existing_entries_ids = Word::where('user_id', Auth::id())->pluck('id')->toArray();
+            foreach($arrayed as $entry) {
+                if (in_array($entry['id'], $existing_entries_ids)) {
+                    // if exists, update
+                    $entry['user_id'] = Auth::id();
+                    unset($entry['created_at'], $entry['updated_at']);
+                    Word::where('user_id', Auth::id())->where('id', $entry['id'])->update($entry);
+                } else {
+                    // if doesn't exist, create
+                    $entry['user_id'] = Auth::id();
+                    unset($entry['id'], $entry['created_at'], $entry['updated_at']);
+                    Word::create($entry);
+                }
+            }
+            return redirect('/words')->with('success', 'Import successful!');
+        }
+    }
+
+    // ========================================================
 }
