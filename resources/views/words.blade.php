@@ -28,7 +28,7 @@
 
 @section('content')
     <div class="mt-10 text-center">
-        {{-- Page title & filter --}}
+        {{-- Page title & filter select --}}
         <div class="flex items-center justify-between max-w-2xl mx-auto mb-5">
             <h2 class="text-2xl font-semibold text-white">View Words — Entries: {{count($user_words)}}</h2>
             @include('partials.lang_select')
@@ -36,17 +36,18 @@
 
         {{-- print words --}}
         @if (!empty($user_words) && count($user_words) > 0)
+            {{-- words --}}
             <div class="max-w-2xl mx-auto">
                 @foreach ($user_words as $entry)
                     @include('partials.word_entry')
                 @endforeach
             </div>
+            {{-- pagination --}}
             <div class="max-w-2xl mx-auto mt-6">{{ $user_words->links() }}</div>
         @else 
-            <div class="text-center text-white">No words added.</div>
+            <div class="text-center text-white text-lg">No words added.</div>
         @endif
 
-        @include('partials.import_export_btns')
     </div>
 
     @include('partials.flash_message')

@@ -38,7 +38,8 @@ class PageController extends Controller
             'user_words' => Word::where('user_id', Auth::id())->latest()->simplePaginate($this->entries_per_page),
             'user_languages' => Word::where('user_id', Auth::id())->select('language')->distinct()->get(),
             'user_categories' => Word::where('user_id', Auth::id())->select('category')->distinct()->get(),
-            'user_month_years' => Word::where('user_id', Auth::id())->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month')->get()
+            'user_month_years' => Word::where('user_id', Auth::id())->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month')->get(),
+            'all_user_words' => Word::where('user_id', Auth::id())->latest()->get()
         ];
 
         // if filtering
@@ -67,14 +68,18 @@ class PageController extends Controller
     // =========================================================
 
     public function show_form () {
-        return view('form');
+        $data = [
+            'all_user_words' => Word::where('user_id', Auth::id())->latest()->get()
+        ];
+        return view('form', $data);
     }
 
     // =========================================================
 
     public function show_lang_prompt () {
         $data = [
-            'user_languages' => Word::where('user_id', Auth::id())->select('language')->distinct()->pluck('language')
+            'user_languages' => Word::where('user_id', Auth::id())->select('language')->distinct()->pluck('language'),
+            'all_user_words' => Word::where('user_id', Auth::id())->latest()->get()
         ];
         return view('lang_prompt', $data);
     }
@@ -110,7 +115,10 @@ class PageController extends Controller
     // =========================================================
 
     public function show_round () {
-        return view('round');
+        $data = [
+            'all_user_words' => Word::where('user_id', Auth::id())->latest()->get()
+        ];
+        return view('round', $data);
     }
 
     // =========================================================
@@ -119,14 +127,20 @@ class PageController extends Controller
         $sesh_counter = session('round_counter');
         $entries = session('entries');
         session(['round_counter' => (int) $sesh_counter + 1]);
-        return view('round');
+        $data = [
+            'all_user_words' => Word::where('user_id', Auth::id())->latest()->get()
+        ];
+        return view('round', $data);
     }
 
     // =========================================================
 
     public function show_finish_screen () {
         session(['success' => 'Quiz finished! Now assess your knowledge.']);
-        return view('assess_knowledge');
+        $data = [
+            'all_user_words' => Word::where('user_id', Auth::id())->latest()->get()
+        ];
+        return view('assess_knowledge', $data);
     }
 
     // =========================================================

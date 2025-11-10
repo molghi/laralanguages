@@ -14,6 +14,7 @@
     @include('partials.styles')
 </head>
 <body style="background-color: var(--bg);" class="flex flex-col h-[100vh] text-[var(--accent)] font-mono">
+    {{-- gif background element --}}
     <div class="bg"></div>
 
     <main class="flex-1 pb-[100px]">
@@ -28,7 +29,7 @@
     @include('partials.footer')
 
     {{-- JS: show now time --}}
-    {{-- @include('partials.js_show_now_time') --}}
+    @include('partials.js_show_now_time')
 
     {{-- JS: hotkeys --}}
     @include('partials.js_hotkeys')

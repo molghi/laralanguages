@@ -80,11 +80,13 @@
     .rounds .round button:active {
         opacity: 0.7;
     }
+
     .btn--clicked {
         opacity: 1;
         background-color: antiquewhite;
         color: black;
     }
+    
     .form-submit-results button {
         transition: all 1s;
     }

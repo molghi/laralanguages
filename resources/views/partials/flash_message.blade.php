@@ -1,5 +1,5 @@
 @if (session('success'))
-    <div class="flash-msg transition bg-black text-[limegreen] px-3 py-2 rounded border border-[limegreen] fixed bottom-[20px] right-[20px] opacity-0 translate-y-[100px]">{{ session('success') }}</div>
+    <div class="flash-msg transition bg-black text-[limegreen] px-3 py-2 rounded border border-[limegreen] fixed bottom-[20px] z-50 right-[20px] opacity-0 translate-y-[100px]">{{ session('success') }}</div>
 
     <script>
         // show success msg nicely and then hide
@@ -19,10 +19,10 @@
 
 
 @if (session('error'))
-    <div class="flash-msg transition bg-black text-[red] px-3 py-2 rounded border border-[red] fixed bottom-[20px] right-[20px] opacity-0 translate-y-[100px]">{{ session('error') }}</div>
+    <div class="flash-msg transition bg-black text-[red] px-3 py-2 rounded border border-[red] fixed bottom-[20px] z-50 right-[20px] opacity-0 translate-y-[100px]">{{ session('error') }}</div>
 
     <script>
-        // show success msg nicely and then hide
+        // show error msg nicely and then hide
         const successMsg = document.querySelector('.flash-msg');
         setTimeout(() => {
             successMsg.classList.remove('opacity-0');

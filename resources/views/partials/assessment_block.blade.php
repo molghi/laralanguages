@@ -1,10 +1,14 @@
 <div class="max-w-4xl mx-auto mt-10 px-4">
 
+    {{-- block header --}}
     <div class="flex items-center justify-between text-white mb-10">
+        {{-- page title --}}
         <h2 class="text-[#eee] font-bold text-2xl">Assess Your Knowledge — Spaced Repetition System</h2>
+        {{-- language practiced --}}
         <div class="p-2 rounded-md border border-gray-700 text-[{{ $language_color }}]" style="background-color: rgba(0,0,0,0.5)">{{ $language }}</div>
     </div>
     
+    {{-- print rounds data --}}
     <div class="rounds mb-10">
         @foreach ($entries as $index => $entry)
             <div class="round flex items-center rounded-md border border-gray-700 text-white mb-5 p-5 {{config('tailwind.block-bg--transparent')}} transition">
@@ -14,6 +18,7 @@
                     —
                     <div class="italic">{{ $entry['translation'] }}</div>
                 </div>
+                {{-- assessment btns --}}
                 <div class="btns flex gap-2 items-center ml-auto text-sm">
                     <button class="btn-forgot border border-gray-700 {{config('tailwind.btn-styles')}}" title="You didn’t remember the answer">Forgot</button>
                     <button class="btn-barely border border-gray-700 {{config('tailwind.btn-styles')}}" title="You remembered with difficulty">Barely</button>
@@ -28,7 +33,9 @@
 
     {{-- block footer --}}
     <div class="flex justify-end gap-6 items-center text-white">
+        {{-- message --}}
         <div class="warning text-[coral] transition p-2 px-4 rounded-md border border-gray-700" style="background-color: rgba(0,0,0,0.5)">You must rate every question to submit the results.</div>
+        {{-- submit results form/btn --}}
         <form action="{{ route('quiz.register') }}" method="POST" class="form-submit-results">
             @csrf 
             <input type="hidden" name="results" value="">

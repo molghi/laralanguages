@@ -23,15 +23,16 @@
         'snowy-day-3': 'snowy-day-3.gif',
     }
 
-    // populate w/ options
+    // populate select w/ options
     const optionsMarkup = Object.keys(options).map(opt => {
         return `<option value="${opt}">${opt.replaceAll('-', ' ')}</option>`;
     })
     bgSelectEl.insertAdjacentHTML('beforeend', optionsMarkup.join(''));
 
-    // react to change, change BG nicely, save to LS
+    // react to select change: change bg nicely, save to LS
     bgSelectEl.addEventListener('change', function(e) {
         const selectedOption = e.target.value;
+        // sort of blink the bg:
         bgEl.style.filter = 'brightness(0)';
         setTimeout(() => {
             bgEl.style.background = `url('${path}` + options[selectedOption] + `') 0 0 / cover no-repeat`;
@@ -48,7 +49,7 @@
         bgEl.style.background = `url('${path}` + options[bgFromLS] + `') 0 0 / cover no-repeat`;
         document.querySelector(`select option[value="${bgFromLS}"]`).selected = true;
     } else {
-        const defaultOption = 'snowing-in-the-dusk';
+        const defaultOption = 'snowing-in-the-dusk'; // default option
         bgEl.style.background = `url('${path}` + options[defaultOption] + `') 0 0 / cover no-repeat`;
         document.querySelector(`select option[value="${defaultOption}"]`).selected = true;
     }

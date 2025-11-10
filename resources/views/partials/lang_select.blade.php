@@ -11,19 +11,18 @@
     <option value="0" selected disabled>Filter</option>
     <option value="show-all">Show all</option>
 
-    {{-- LANGUAGES --}}
+    {{-- populate w/ user LANGUAGES --}}
     @if (!empty($user_languages) && count($user_languages) > 0)
         @foreach ($user_languages as $key => $val)  
             <option value="lang-{{$val['language']}}" 
                 {{ !empty(session('current_filter')) && "lang-".$val['language'] === session('current_filter') ? 'selected' : '' }}
-                {{-- {{$val['language'] === $selected_language ? 'selected' : ''}} --}}
             >
                 Language: {{$languages[$val['language']]}}
             </option>
         @endforeach
     @endif 
 
-    {{-- CATEGORIES --}}
+    {{-- populate w/ user CATEGORIES --}}
     @if (!empty($user_categories) && count($user_categories) > 0)
         @foreach ($user_categories as $key => $val)  
             @if ($val['category'])
@@ -36,7 +35,7 @@
         @endforeach
     @endif
 
-    {{-- MONTH-YEARS --}}
+    {{-- populate w/ user MONTH-YEARS --}}
     @if (!empty($month_years) && count($month_years) > 0)
         @foreach ($month_years as $key => $val)  
             <option value="period-{{$val}}"
@@ -53,20 +52,25 @@
 
 
 <script>
+    // react to change on this select
     document.querySelector('select[name="filter"]').addEventListener('change', function(e) {
         const selectedValue = e.target.value;
         if (selectedValue === 'show-all') {
+            // show all words, default option
             location.href = `/words`;
         }
         if (selectedValue.includes('lang-')) {
+            // filter by lang
             const [lang, value] = selectedValue.split('-');
             location.href = `/words?filter=${lang}&value=${value}`;
         }
         if (selectedValue.includes('category-')) {
+            // filter by category
             const [cat, value] = selectedValue.split('-');
             location.href = `/words?filter=${cat}&value=${value}`;
         }
         if (selectedValue.includes('period-')) {
+            // filter by month-year
             const period = selectedValue.split('-')[0];
             const value = selectedValue.split('-').slice(1).join('-');
             location.href = `/words?filter=${period}&value=${value}`;
