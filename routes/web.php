@@ -62,3 +62,22 @@ Route::get('/export', [WordController::class, 'return_words_json'])->middleware(
 
 // Import words
 Route::post('/import', [WordController::class, 'process_import'])->name('import')->middleware('auth');
+
+
+// Show prompt "which lang do you wish to practice?"
+Route::get('/practice/prompt', [PageController::class, 'show_lang_prompt'])->middleware('auth');
+
+// Fetch practice words
+Route::post('/practice/', [PageController::class, 'fetch_practice_words'])->name('fetch_practice')->middleware('auth');
+
+// Start quiz
+Route::get('/practice/rounds', [PageController::class, 'show_round'])->middleware('auth');
+
+// Proceed in quiz
+Route::post('/practice/rounds', [PageController::class, 'proceed_in_quiz'])->name('quiz.proceed')->middleware('auth');
+
+// Finish quiz, show knowledge estimation screen
+Route::post('/practice/finish', [PageController::class, 'show_finish_screen'])->name('quiz.finish')->middleware('auth');
+
+// Register quiz
+Route::post('/practice/register', [PageController::class, 'register_quiz_results'])->name('quiz.register')->middleware('auth');

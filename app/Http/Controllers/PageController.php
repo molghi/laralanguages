@@ -71,4 +71,96 @@ class PageController extends Controller
     }
 
     // =========================================================
+
+    public function show_lang_prompt () {
+        $data = [
+            'user_languages' => Word::where('user_id', Auth::id())->select('language')->distinct()->pluck('language')
+        ];
+        return view('lang_prompt', $data);
+    }
+
+    // =========================================================
+
+    public function fetch_practice_words (Request $request) {
+        $allowed_options = Word::where('user_id', Auth::id())->select('language')->distinct()->pluck('language')->toArray();
+
+        session(['language_practicing' => $request['language']]);
+        
+        $option_is_allowed = in_array(strtolower($request['language']), $allowed_options);
+
+        if (!$option_is_allowed) {
+            return back()->with('error', 'Option not recognized: type 2-letter code');
+        } else {
+            // fetch 5 entries in this lang whose next_revision is suitable now
+            $how_many = 5;
+            $entries = Word::where('user_id', Auth::id())
+                        ->where('language', strtolower($request['language']))
+                        ->where(function($query) {
+                                $query->whereNull('next_revision')
+                                    ->orWhere('next_revision', '<=', now());
+                                })
+                        ->take($how_many)->get();
+            
+            session(['entries' => $entries]);
+            session(['round_counter' => 0]);
+            return redirect('/practice/rounds');
+        }
+    }
+
+    // =========================================================
+
+    public function show_round () {
+        return view('round');
+    }
+
+    // =========================================================
+
+    public function proceed_in_quiz () {
+        $sesh_counter = session('round_counter');
+        $entries = session('entries');
+        session(['round_counter' => (int) $sesh_counter + 1]);
+        return view('round');
+    }
+
+    // =========================================================
+
+    public function show_finish_screen () {
+        session(['success' => 'Quiz finished! Now assess your knowledge.']);
+        return view('assess_knowledge');
+    }
+
+    // =========================================================
+
+    public function register_quiz_results (Request $request) {
+        // receive quiz results
+        $results = $request['results'];
+        $results = json_decode($results, true); // make it assoc arr
+
+        // get practiced words' ids
+        $rounds_data = session('entries');
+        
+        // update entries -- spaced repetition system
+        foreach ($rounds_data as $index => $round) { 
+            $word_id = $round['id'];
+            $result = $results[$index]; // associated result
+            $next_when = now(); // default, fallback
+
+            if ($result === 'forgot') $next_when = now()->addMinute(); // in 1 minute
+            if ($result === 'barely') $next_when = now()->addDay(); // in 1 day
+            if ($result === 'okay') $next_when = now()->addDays(3); // in 3 days
+            if ($result === 'easily') $next_when = now()->addDays(6); // in 6 days
+
+            Word::where('user_id', Auth::id())->where('id', $word_id)
+                    ->update(['next_revision' => $next_when]);
+        }
+
+        // reset sesh vars
+        session(['entries' => []]);
+        session(['round_counter' => 0]);
+
+        // return to /words with a message
+        return redirect('/words')->with('success', 'Quiz results saved!');
+    }
+
+    // =========================================================
 }

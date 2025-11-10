@@ -38,10 +38,10 @@
         transition: all .5s;
     }
 
-    .translation {
+    .word-entry .translation {
         position: relative;
     }
-    .translation:after {
+    .word-entry .translation:after {
         content: '';
         position: absolute;
         top: 0;
@@ -63,6 +63,30 @@
 
     .word-entry:hover {
         box-shadow:  0 0 10px antiquewhite;
+    }
+
+    .rounds .round {
+        transition: all 1s;
+    }
+    .rounds .round:hover {
+        box-shadow: inset 0 0 10px antiquewhite;
+    }
+
+    .rounds .round button:hover {
+        opacity: 1;
+        background-color: antiquewhite;
+        color: black;
+    }
+    .rounds .round button:active {
+        opacity: 0.7;
+    }
+    .btn--clicked {
+        opacity: 1;
+        background-color: antiquewhite;
+        color: black;
+    }
+    .form-submit-results button {
+        transition: all 1s;
     }
 
 </style>

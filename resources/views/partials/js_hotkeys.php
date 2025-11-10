@@ -16,6 +16,16 @@
                 // click Practice
                 if (document.querySelector('#practice')) document.querySelector('#practice').click();
             }
+            if (pressedKey === 'Space' && document.querySelector('.practice-round')) {
+                // proceed in quiz
+                if (document.querySelector('.actions form button').style.opacity == 0) {
+                    // if Next btn is hidden, click Show
+                    document.querySelector('.show-btn').click();
+                } else {
+                    // click Next btn
+                    document.querySelector('.actions form button').click();
+                }
+            }
         }
     })
 </script>
